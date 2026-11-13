@@ -30,11 +30,6 @@ pipeline {
                 sh 'ls -lh target/*.jar'
             }
         }
-
-        stage('Docker Build') {
-            steps {
-                sh 'docker build -t smartcampus:1.0 .'
-            }
-        }
+ 
     }  
 }
