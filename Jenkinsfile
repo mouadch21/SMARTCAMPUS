@@ -28,6 +28,7 @@ pipeline {
             steps {
                 sh 'mvn -B package -DskipTests'
                 sh 'ls -lh target/*.jar'
+                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
             }
         }
  
