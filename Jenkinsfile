@@ -14,7 +14,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'mvn -B clean package -DskipTests'
+                sh 'mvn -B clean compile'
             }
         }
 
@@ -23,5 +23,18 @@ pipeline {
                 sh 'mvn -B test'
             }
         }
-    }
+
+        stage('Package') {
+            steps {
+                sh 'mvn -B package -DskipTests'
+                sh 'ls -lh target/*.jar'
+            }
+        }
+
+        stage('Docker Build') {
+            steps {
+                sh 'docker build -t smartcampus:1.0 .'
+            }
+        }
+    }  
 }
