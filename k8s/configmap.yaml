@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: smartcampus-config
+data:
+  SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres:5432/smartcampus_db"
+  POSTGRES_DB: "smartcampus_db"

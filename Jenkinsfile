@@ -28,13 +28,9 @@ pipeline {
             steps {
                 sh 'mvn -B package -DskipTests'
                 sh 'ls -lh target/*.jar'
+                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
             }
         }
-
-        stage('Docker Build') {
-            steps {
-                sh 'docker build -t smartcampus:1.0 .'
-            }
-        }
+ 
     }  
 }
