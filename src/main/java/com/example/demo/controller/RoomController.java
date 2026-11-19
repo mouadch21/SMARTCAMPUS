@@ -1,5 +1,6 @@
-package com.example.demo;
+package com.example.demo.controller;
 
+import com.example.demo.entity.Room;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
