@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: smartcampus
-          image: smartcampus:1.0
+          image: smartcampus:2.1
           imagePullPolicy: IfNotPresent
           envFrom:
             - configMapRef:
