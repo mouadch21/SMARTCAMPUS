@@ -3,15 +3,17 @@ package com.example.demo.entity;
 public class User {
     private Long id;
     private String email;
-    private String password;
+    private String passwordHash;
     private boolean active;
+    private int failedLoginAttempts;
+    private boolean locked;
 
     public User() {}
 
-    public User(Long id, String email, String password, boolean active) {
+    public User(Long id, String email, String passwordHash, boolean active) {
         this.id = id;
         this.email = email;
-        this.password = password;
+        this.passwordHash = passwordHash;
         this.active = active;
     }
 
@@ -31,12 +33,12 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPasswordHash() {
+        return passwordHash;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 
     public boolean isActive() {
@@ -45,5 +47,21 @@ public class User {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public int getFailedLoginAttempts() {
+        return failedLoginAttempts;
+    }
+
+    public void setFailedLoginAttempts(int failedLoginAttempts) {
+        this.failedLoginAttempts = failedLoginAttempts;
+    }
+
+    public boolean isLocked() {
+        return locked;
+    }
+
+    public void setLocked(boolean locked) {
+        this.locked = locked;
     }
 }
