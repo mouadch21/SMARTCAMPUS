@@ -16,6 +16,8 @@ docker compose up --build -d
 ```
 
 Les routes sont accessibles à l'adresse `http://localhost:8082`.
+L'interface Swagger UI est disponible à `http://localhost:8082/swagger-ui/index.html`
+et la spécification OpenAPI JSON à `http://localhost:8082/v3/api-docs`.
 
 Créer un compte :
 

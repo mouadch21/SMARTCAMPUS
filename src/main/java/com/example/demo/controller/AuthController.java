@@ -3,6 +3,8 @@ package com.example.demo.controller;
 import com.example.demo.dto.LoginRequest;
 import com.example.demo.dto.RegisterRequest;
 import com.example.demo.service.AuthService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/auth")
+@Tag(name = "Authentification", description = "Création de compte et connexion")
 public class AuthController {
 
     private final AuthService authService;
@@ -22,6 +25,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
+    @Operation(summary = "Créer un compte utilisateur")
     public ResponseEntity<String> register(@RequestBody RegisterRequest request) {
         if (request == null || !authService.isValidRegistration(request.email(), request.password())) {
             return ResponseEntity.badRequest().body("Adresse courriel ou mot de passe invalide.");
@@ -36,6 +40,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
+    @Operation(summary = "Se connecter")
     public ResponseEntity<String> login(@RequestBody LoginRequest request) {
         if (request == null) {
             return ResponseEntity.badRequest().body("Adresse courriel et mot de passe requis.");
