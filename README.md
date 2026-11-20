@@ -47,3 +47,24 @@ UPDATE users
 SET locked = FALSE, failed_login_attempts = 0
 WHERE email = 'user@example.com';
 ```
+
+## Déploiement Kubernetes (Minikube)
+
+Le manifeste utilise l'image locale `smartcampus:2.1`. Après avoir placé le JAR
+dans `target`, construisez et chargez l'image dans Minikube, puis déployez-la :
+
+```powershell
+docker build -t smartcampus:2.1 .
+minikube image load smartcampus:2.1
+kubectl apply -f k8s/deployment.yaml
+kubectl rollout status deployment/smartcampus
+```
+
+Pour ouvrir Swagger UI depuis la machine locale, démarrez le transfert de port
+et laissez cette commande active :
+
+```powershell
+kubectl port-forward service/smartcampus 8083:80
+```
+
+Ouvrez ensuite `http://localhost:8083/swagger-ui/index.html`.
