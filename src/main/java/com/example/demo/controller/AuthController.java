@@ -1,10 +1,13 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.LoginRequest;
+import com.example.demo.dto.LoginResponse;
 import com.example.demo.dto.RegisterRequest;
 import com.example.demo.service.AuthService;
+import com.example.demo.service.JwtService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.Locale;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,9 +22,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
     private final AuthService authService;
+    private final JwtService jwtService;
 
-    public AuthController(AuthService authService) {
+    public AuthController(AuthService authService, JwtService jwtService) {
         this.authService = authService;
+        this.jwtService = jwtService;
     }
 
     @PostMapping("/register")
@@ -41,13 +46,15 @@ public class AuthController {
 
     @PostMapping("/login")
     @Operation(summary = "Se connecter")
-    public ResponseEntity<String> login(@RequestBody LoginRequest request) {
+    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
         if (request == null) {
             return ResponseEntity.badRequest().body("Adresse courriel et mot de passe requis.");
         }
 
         if (authService.authenticate(request.email(), request.password())) {
-            return ResponseEntity.ok("Connexion réussie.");
+            String normalizedEmail = request.email().trim().toLowerCase(Locale.ROOT);
+            String token = jwtService.generateToken(normalizedEmail);
+            return ResponseEntity.ok(new LoginResponse(token, "Bearer"));
         }
 
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
