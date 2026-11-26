@@ -59,7 +59,7 @@ describe("parcours", () => {
     await userEvent.type(screen.getByLabelText("Adresse courriel"), "yassine@smartcampus.ma");
     await userEvent.type(screen.getByLabelText("Mot de passe"), "password123");
     await userEvent.click(screen.getByRole("button", { name: "Se connecter" }));
-    await waitFor(() => expect(screen.getByText("Bonjour")).toBeInTheDocument());
+    await waitFor(() => expect(screen.getByText("Bonjour, Yassine")).toBeInTheDocument());
     expect(screen.getAllByText("yassine@smartcampus.ma").length).toBeGreaterThan(0);
   });
 
